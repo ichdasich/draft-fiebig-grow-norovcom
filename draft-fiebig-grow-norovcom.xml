@@ -7,9 +7,9 @@
         <!ENTITY wj     "&#8288;">
 ]>
 <rfc xmlns:xi="http://www.w3.org/2001/XInclude"
-     ipr="trust200902" submissionType="IETF" category="bcp" version="3" docName="draft-fiebig-grow-norovcom-latest">
+     ipr="trust200902" submissionType="IETF" category="info" version="3" docName="draft-fiebig-grow-norovcom-latest">
     <front>
-        <title abbrev="BGP NOROVCOM">Updated BGP Operations and Security</title>
+        <title abbrev="BGP NOROVCOM">Do not Use BGP Communities for Signaling RPKI ROV State</title>
         <seriesInfo name="Internet-Draft" status="standard" value="draft-fiebig-grow-norovcom-latest"/>
         <author fullname="Tobias Fiebig" initials="T." surname="Fiebig">
             <organization abbrev="MPI-INF">Max-Planck-Institut fuer Informatik</organization>
@@ -29,7 +29,7 @@
 
         <abstract>
             <t>
-				This is an abstract.
+                This is an abstract.
             </t>
         </abstract>
     </front>
@@ -54,7 +54,7 @@
         <section  anchor="sec-scope-of-the-document">
             <name>Scope of the Document</name>
             <t>
-				This is the scope.
+                This is the scope.
             </t>
         </section>
         <section  anchor="sec-definitions-and-acronyms">
@@ -102,7 +102,7 @@
             <name>First section</name>
 
             <t>
-				Section.
+                Section.
             </t>
 
         </section>
@@ -116,7 +116,7 @@
         <section  anchor="sec-security-considerations">
             <name>Security Considerations</name>
             <t>
-				Security considerations missing.
+                Security considerations missing.
             </t>
         </section>
     </middle>
@@ -128,368 +128,11 @@
                 <name>Normative References</name>
                 <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.2119.xml"/>
                 <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.8174.xml"/>
-<!--                <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.4271.xml"/>
-                <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.4272.xml"/>
-                <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5082.xml"/>
-                <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5925.xml"/>
-                <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6811.xml"/>
-                <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7606.xml"/>
-                <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7115.xml"/>
-                <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7196.xml"/>
-                <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8092.xml"/>
-                <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8200.xml"/>
-                <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8201.xml"/>
-                <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8212.xml"/>
-                <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8704.xml"/>
-                <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.9234.xml"/>
-                <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.9319.xml"/>
-                <reference anchor="I-D.ietf-sidrops-aspa-verification" target="https://datatracker.ietf.org/doc/html/draft-ietf-sidrops-aspa-verification-16">
-                    <front>
-                        <title>BGP AS_PATH Verification Based on Autonomous System Provider Authorization (ASPA) Objects</title>
-                        <author initials="A." surname="Azimov" fullname="Alexander Azimov">
-                            <organization>Yandex</organization>
-                        </author>
-                        <author initials="E." surname="Bogomazov" fullname="Eugene Bogomazov">
-                            <organization>Qrator Labs</organization>
-                        </author>
-                        <author initials="R." surname="Bush" fullname="Randy Bush">
-                            <organization>Internet Initiative Japan and Arrcus, Inc.</organization>
-                        </author>
-                        <author initials="K." surname="Patel" fullname="Keyur Patel">
-                            <organization>Arrcus</organization>
-                        </author>
-                        <author initials="J." surname="Snijders" fullname="Job Snijders">
-                            <organization>Fastly</organization>
-                        </author>
-                        <author initials="K." surname="Sriram" fullname="Kotikalapudi Sriram">
-                            <organization>USA National Institute of Standards and Technology</organization>
-                        </author>
-                        <date month="August" day="29" year="2023"/>
-                    </front>
-                    <seriesInfo name="Internet-Draft" value="draft-ietf-sidrops-aspa-verification-16"/>
-                </reference> -->
+                <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.4271.xml"/>
             </references>
             <references>
                 <name>Informative References</name>
-
-                <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.1191.xml"/>
-<!--                <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.1918.xml"/>
-                <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.1997.xml"/>
-                <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.2827.xml"/>
-                <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.3704.xml"/>
-                <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.4012.xml"/>
-                <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.4456.xml"/>
-                <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.4360.xml"/>
-                <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.4364.xml"/>
-                <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6192.xml"/>
-                <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6480.xml"/>
-                <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6518.xml"/>
-                <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6666.xml"/>
-                <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6952.xml"/>
-                <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7132.xml"/>
-                <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7454.xml"/>
-                <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7947.xml"/>
-                <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8195.xml"/>
-                <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.9229.xml"/>
-                <reference anchor="TBD" target="https://example.com">
-                     <front>
-                       <title>Reference still to be added</title>
-                       <author initials="P" surname="Holder" fullname="Place">
-                         <organization/>
-                       </author>
-                       <date month="November" year="2023"/>
-                     </front>
-                   </reference>
-                <reference anchor="NSRC-17" target="https://nsrc.org/workshops/2017/apricot2017/bgp/bgp/preso/05-BGP-BCP.pdf">
-                     <front>
-                       <title>BGP Best Current Practices</title>
-                       <author initials="P" surname="Smith" fullname="Philip">
-                         <organization/>
-                       </author>
-                       <date month="February" year="2017"/>
-                     </front>
-                   </reference>
-                <reference anchor="KIRIN-22" target="https://arxiv.org/abs/2210.10676">
-                     <front>
-                       <title>Kirin: Hitting the Internet with Millions of Distributed IPv6 Announcements</title>
-                       <author initials="L" surname="Prehn" fullname="Lars">
-                         <organization/>
-                       </author>
-                       <author initials="P" surname="Foremski" fullname="Pawel">
-                         <organization/>
-                       </author>
-                       <author initials="O" surname="Gasser" fullname="Oliver">
-                         <organization/>
-                       </author>
-                       <date month="October" year="2022"/>
-                     </front>
-                   </reference>
-                <reference anchor="APNICTRN-17" target="https://wiki.apnictraining.net/_media/ixpworkshop-kolisoc-in/2.routing_ixp_workshop_upd.pdf">
-                     <front>
-                       <title>BGP Routing and IXP Workshop</title>
-                       <author initials="N" surname="Roman" fullname="Nurul Islam">
-                         <organization/>
-                       </author>
-                       <author initials="A" surname="Bhatia" fullname="Anurag">
-                         <organization/>
-                       </author>
-                       <date month="March" year="2017"/>
-                     </front>
-                   </reference>
-                <reference anchor="RIPE-804" target="https://www.ripe.net/publications/docs/ripe-804">
-                     <front>
-                       <title>IPv4 Address Allocation and Assignment Policies for the RIPE NCC Service Region</title>
-                       <seriesInfo name="RIPE" value="804"/>
-                       <author>
-                         <organization>RIPE</organization>
-                       </author>
-                       <date month="September" year="2023"/>
-                     </front>
-                   </reference>
-                <reference anchor="CCR-22" target="https://dl.acm.org/doi/abs/10.1145/3544912.3544916">
-                     <front>
-                       <title>Hyper-specific prefixes: gotta enjoy the little things in interdomain routing</title>
-                       <author initials="Z" surname="Sediqi" fullname="Zubair">
-                         <organization/>
-                       </author>
-                       <author initials="L" surname="Prehn" fullname="Lars">
-                         <organization/>
-                       </author>
-                       <author initials="O" surname="Gasser" fullname="Oliver">
-                         <organization/>
-                       </author>
-                       <date month="June" year="2022"/>
-                     </front>
-                   </reference>
-                <reference anchor="NLNOG-22" target="http://mailman.nlnog.net/pipermail/nlnog/2022-November/003046.html">
-                     <front>
-                       <title>Voorkom AS-set namespace collisions. AS-A2B vs AS51088:AS-A2B</title>
-                       <seriesInfo name="NLNOG Mailinglist" value="2022"/>
-                       <author initials="Q" surname="Li" fullname="Qi">
-                         <organization/>
-                       </author>
-                       <date month="November" year="2022"/>
-                     </front>
-                   </reference>
-                <reference anchor="FENG-22" target="https://csis.gmu.edu/ksun/publications/TCP%20Fragmentation_NDSS22.pdf">
-                     <front>
-                       <title>PMTUD is not Panacea: Revisiting IP Fragmentation Attacks against TCP</title>
-                       <seriesInfo name="NDSS" value="2022"/>
-                       <author initials="X" surname="Feng" fullname="Xuewei">
-                         <organization/>
-                       </author>
-                       <author initials="Q" surname="Li" fullname="Qi">
-                         <organization/>
-                       </author>
-                       <author initials="K" surname="Sun" fullname="Kun">
-                         <organization/>
-                       </author>
-                       <author initials="K" surname="Xu" fullname="Ke">
-                         <organization/>
-                       </author>
-                       <author initials="B" surname="Liu" fullname="Baojun">
-                         <organization/>
-                       </author>
-                       <author initials="X" surname="Zheng" fullname="Xiaofeng">
-                         <organization/>
-                       </author>
-                       <author initials="Q" surname="Yang" fullname="Qiushi">
-                         <organization/>
-                       </author>
-                       <author initials="H" surname="Duan" fullname="Haixin">
-                         <organization/>
-                       </author>
-                       <author initials="Z" surname="Qian" fullname="Zhiyun">
-                         <organization/>
-                       </author>
-                       <date month="February" year="2022"/>
-                     </front>
-                   </reference>
-                <reference anchor="RIPE-351" target="https://www.ripe.net/publications/docs/ripe-351">
-                     <front>
-                       <title>De-Bogonising New Address Blocks</title>
-                       <seriesInfo name="RIPE" value="351"/>
-                       <author initials="D" surname="Daniel" fullname="Karrenberg">
-                         <organization/>
-                       </author>
-                       <date month="October" year="2005"/>
-                     </front>
-                   </reference>
-                <reference anchor="RIPE-378" target="https://www.ripe.net/publications/docs/ripe-378">
-                     <front>
-                       <title>RIPE Routing Working Group Recommendations On Route-flap Damping</title>
-                       <seriesInfo name="RIPE" value="378"/>
-                       <author initials="P" surname="Smith" fullname="Philip">
-                         <organization/>
-                       </author>
-                       <author initials="C" surname="Panigl" fullname="Christian">
-                         <organization/>
-                       </author>
-                       <date month="May" year="2006"/>
-                     </front>
-                   </reference>
-                <reference anchor="RIPE-399" target="https://www.ripe.net/publications/docs/ripe-399">
-                     <front>
-                       <title>RIPE Routing Working Group Recommendations on Route Aggregation</title>
-                       <seriesInfo name="RIPE" value="399"/>
-                       <author initials="P" surname="Smith" fullname="Philip">
-                         <organization/>
-                       </author>
-                       <author initials="R" surname="Evans" fullname="Rob">
-                         <organization/>
-                       </author>
-                       <author initials="M" surname="Hughes" fullname="Mike">
-                         <organization/>
-                       </author>
-                       <date month="December" year="2006"/>
-                     </front>
-                   </reference>
-                <reference anchor="RIPE-532" target="https://www.ripe.net/publications/docs/ripe-532">
-                     <front>
-                       <title>RIPE Routing Working Group Recommendations on IPv6 Route Aggregation</title>
-                       <seriesInfo name="RIPE" value="532"/>
-                       <author initials="R" surname="Evans" fullname="Rob">
-                         <organization/>
-                       </author>
-                       <author initials="P" surname="Smith" fullname="Philip">
-                         <organization/>
-                       </author>
-                       <date month="November" year="2011"/>
-                     </front>
-                   </reference>
-                <reference anchor="RIPE-580" target="https://www.ripe.net/publications/docs/ripe-580">
-                     <front>
-                       <title>RIPE Routing Working Group Recommendations on Route Flap Damping</title>
-                       <seriesInfo name="RIPE" value="580"/>
-                       <author initials="R" surname="Bush" fullname="Randy">
-                         <organization/>
-                       </author>
-                       <author initials="C" surname="Pelsser" fullname="Cristel">
-                         <organization/>
-                       </author>
-                       <author initials="M" surname="Kuhne" fullname="Mirjam">
-                         <organization/>
-                       </author>
-                       <author initials="O" surname="Maennel" fullname="Olaf">
-                         <organization/>
-                       </author>
-                       <author initials="P" surname="Mohapatra" fullname="Pradosh">
-                         <organization/>
-                       </author>
-                       <author initials="K" surname="Patel" fullname="Keyur">
-                         <organization/>
-                       </author>
-                       <author initials="R" surname="Evans" fullname="Rob">
-                         <organization/>
-                       </author>
-                       <date month="January" year="2013"/>
-                     </front>
-                   </reference>
-                <reference anchor="IANAv4Spec" target="https://www.iana.org/assignments/iana-ipv4-special-registry">
-                     <front>
-                       <title>IANA IPv4 Special-Purpose Address Registry</title>
-                       <author>
-                         <organization>IANA</organization>
-                       </author>
-                     </front>
-                   </reference>
-                <reference anchor="IANAv6Spec" target="https://www.iana.org/assignments/iana-ipv6-special-registry">
-                     <front>
-                       <title>IANA IPv6 Special-Purpose Address Registry</title>
-                       <author>
-                         <organization>IANA</organization>
-                       </author>
-                     </front>
-                   </reference>
-                <reference anchor="IANAv4Reg" target="https://www.iana.org/assignments/ipv4-address-space">
-                     <front>
-                       <title>IANA IPv4 Address Space Registry</title>
-                       <author>
-                         <organization>IANA</organization>
-                       </author>
-                     </front>
-                   </reference>
-                <reference anchor="IANAv6Reg" target="https://www.iana.org/assignments/ipv6-address-space">
-                     <front>
-                       <title>Internet Protocol Version 6 Address Space</title>
-                       <author>
-                         <organization>IANA</organization>
-                       </author>
-                     </front>
-                   </reference>
-                <reference anchor="RADb" target="https://www.radb.net">
-                     <front>
-                       <title>RADb - The Internet Routing Registry</title>
-                       <author>
-                         <organization>Merit Network Inc.</organization>
-                       </author>
-                     </front>
-                   </reference>
-                <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7705.xml"/>
-                <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7353.xml"/>
-                <reference anchor="PeeringDB" target="https://www.peeringdb.com/">
-                     <front>
-                       <title>PeeringDB: The Interconnection Database</title>
-                       <author>
-                         <organization>PeeringDB</organization>
-                       </author>
-                     </front>
-                   </reference>
-                <reference anchor="CommunityIX" target="https://www.community-ix.net/">
-                     <front>
-                       <title>Community-IX by IN-Berlin e.V., the connectivity-platform for non-commercial projects, ideas and organisations in Berlin and Frankfurt</title>
-                       <author>
-                         <organization>IN-Berlin e.V.</organization>
-                       </author>
-                     </front>
-                   </reference>
-                <reference anchor="rpki-client" target="https://marc.info/?l=openbsd-announce&amp;m=169645206105360">
-                     <front>
-                       <title>rpki-client 8.6 has been released</title>
-                       <author>
-                         <organization>OpenBSD Project</organization>
-                       </author>
-                     </front>
-                   </reference>
-                <reference anchor="OpenBGPd" target="https://marc.info/?l=openbsd-announce&amp;m=169624217322602">
-                     <front>
-                       <title>OpenBGPD 8.2 released</title>
-                       <author>
-                         <organization>OpenBSD Project</organization>
-                       </author>
-                     </front>
-                   </reference>
-                <reference anchor="bgpq4" target="https://github.com/bgp/bgpq4">
-                     <front>
-                       <title>bgpq4 Git Repository</title>
-                         <author initials="J." surname="Snijders" fullname="Job Snijders">
-                            <organization>Fastly</organization>
-                         </author>
-                     </front>
-                   </reference>
-                <reference anchor="hotRPKI" target="https://dl.acm.org/doi/pdf/10.1145/2535771.2535787">
-                     <front>
-                       <title></title>
-                       <seriesInfo name="DOI" value="10.1145/2535771.2535787"/>
-                       <author initials="D" surname="Cooper" fullname="Danny">
-                         <organization/>
-                       </author>
-                       <author initials="E" surname="Heilman" fullname="Ethan">
-                         <organization/>
-                       </author>
-                       <author initials="K" surname="Brogle" fullname="Kyle">
-                         <organization/>
-                       </author>
-                       <author initials="L" surname="Reyzin" fullname="Leonid">
-                         <organization/>
-                       </author>
-                       <author initials="S" surname="Goldberg" fullname="Sharon">
-                         <organization/>
-                       </author>
-                       <date month="November" year="2013"/>
-                     </front>
-                   </reference>
-            </references> -->
+            </references>
         </references>
         <section anchor="acknowledgements" numbered="false" toc="default">
             <name>Acknowledgements</name>
