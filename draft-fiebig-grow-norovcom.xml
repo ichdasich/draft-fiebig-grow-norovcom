@@ -9,7 +9,7 @@
 <rfc xmlns:xi="http://www.w3.org/2001/XInclude"
      ipr="trust200902" submissionType="IETF" category="info" version="3" docName="draft-fiebig-grow-norovcom-latest">
     <front>
-        <title abbrev="BGP NOROVCOM">Do not Use BGP Communities for Signaling RPKI ROV State</title>
+        <title abbrev="BGP NOROVCOM">Do not Use BGP Communities for Signaling RPKI Validation State</title>
         <seriesInfo name="Internet-Draft" status="standard" value="draft-fiebig-grow-norovcom-latest"/>
         <author fullname="Tobias Fiebig" initials="T." surname="Fiebig">
             <organization abbrev="MPI-INF">Max-Planck-Institut fuer Informatik</organization>
@@ -29,7 +29,8 @@
 
         <abstract>
             <t>
-                This is an abstract.
+                This document describes why standard BGP communities nor BGP large-communities must not be used to signal RPKI validation state.
+                This includes, but is not limited to, RPKI ROV and, when available, ASPA.
             </t>
         </abstract>
     </front>
@@ -38,7 +39,15 @@
         <section  anchor="sec-introduction">
             <name>Introduction</name>
             <t>
-                The Border Gateway Protocol (BGP), specified in <xref target="RFC4271" format="default"/>, is the protocol used in the Internet to exchange routing information between network domains.
+                The Border Gateway Protocol (BGP), specified in <xref target="RFC4271" format="default"/>, does not proivde a way to verify whether a neighbor is authorized to advertise or announce specific prefixes.
+                Secure Inter-Domain Routing (SIDR) <xref target="RFC6480" format="default"/> has been designed to fill this gap with route origin validation (ROV), described in <xref target="RFC6811" format="default"/>, and the forthcoming Autonomous System Provider Authorization (ASPA), described in <xref target="I-D.ietf-sidrops-aspa-verification" format="default"/>.
+            </t>
+            <t>
+                With the introduction of RPKI based ROV and ASPA, operators started using BGP communities (see <xref target="RFC1997" format="default"/>) and/or BGP large-communities (see <xref target="RFC8092" format="default"/>) to signal the validation state of NLRI among iBGP speakers.
+                Additionally, some operators do not remove these communities when exporting routes, thereby signaling validation state to the DFZ.
+            </t>
+            <t>
+                This document describes why following this practice can have negative consequences within an AS, but may also negatively impact operators across the Internet, and should therefor be discontinued.
             </t>
             <section>
                 <name>Requirements Language</name>
@@ -54,7 +63,7 @@
         <section  anchor="sec-scope-of-the-document">
             <name>Scope of the Document</name>
             <t>
-                This is the scope.
+                This document specifically discusses the use of BGP communities <xref target="RFC1997" format="default"/> and/or BGP large-communities <xref target="RFC8092" format="default"/> to signal RPKI ROV <xref target="RFC6811" format="default"/> and ASPA <xref target="I-D.ietf-sidrops-aspa-verification" format="default"/> validation state.
             </t>
         </section>
         <section  anchor="sec-definitions-and-acronyms">
@@ -98,13 +107,64 @@
                 <dd>In this document, router always refers to a BGP speaker.</dd>
             </dl>
         </section>
-        <section  anchor="sec-f">
-            <name>First section</name>
+        <section  anchor="sec-com-sig-usecases">
+            <name>Use-Cases for Community-Based Signaling of Validation State</name>
 
             <t>
-                Section.
+                Various vendors recommend using BGP communities in their documentation.
+                The common goal of these practices is usually....
+            </t>
+            <section  anchor="sec-com-sig-internal">
+                <name>Signaling to iBGP Speakers</name>
+                <t>
+                    You can signal to iBGP speakers, so they do not need an RTR session.
+                    Invalid routes should be dropped and not redistributed anyway.
+                </t>
+            </section>
+
+            <section  anchor="sec-com-sig-external">
+                <name>Signaling to iBGP Speakers</name>
+                <t>
+                    You can signal to downstreams so they can elect to forcibly not do RPKI even though you do.
+                    Similarly, the inverse would work, i.e., downstreams could skip on having their own RPKI setup and just trust your communities.
+                    Still, invalid routes should be dropped and not redistributed anyway.
+                    Trusting an upstream re: RPKI defeats the purpose of RPKI.
+                </t>
+            </section>
+        </section>
+
+        <section  anchor="sec-com-sig-issues">
+            <name>Issues of Community-Based Signaling of Validation State</name>
+
+            <t>
+                Various issues exist besides "this is not what it has been made for".
             </t>
 
+            <section  anchor="sec-com-sig-updatestorm">
+                <name>Update Storms Upon Validator Failure</name>
+                <t>
+                    If a validator fails, or even worse, keeps flapping, each change of the validation state (unknown, valid, unknown, valid etc.) triggers an update message.
+                    This leads to an update storm/reconvergence of all previously valid routes internally, sending updates for routes that essentially did not change.
+                    If routes are exported with that community attached, peers will also get updates for these routes.
+                    If this happens for a large upstream provider, the cone will be impacted.
+                    If the cone is large, the rest of the Internet will also be impacted.
+                </t>
+            </section>
+
+            <section  anchor="sec-com-sig-defp">
+                <name>Circumvention of RPKI Promises</name>
+                <t>
+                    RPKI promises signed things. Using communities breaks that promise.
+                </t>
+            </section>
+        </section>
+
+        <section  anchor="sec-com-sig-bcp">
+            <name>Better Alternatives to Community-Based Signaling</name>
+
+            <t>
+                Run RTR. Question is what to do if your routers are too old for that.
+            </t>
         </section>
 
         <section  anchor="sec-iana-considerations">
@@ -116,7 +176,7 @@
         <section  anchor="sec-security-considerations">
             <name>Security Considerations</name>
             <t>
-                Security considerations missing.
+                Security considerations are TBD.
             </t>
         </section>
     </middle>
@@ -126,9 +186,38 @@
             <name>References</name>
             <references>
                 <name>Normative References</name>
+                <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.1997.xml"/>
                 <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.2119.xml"/>
-                <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.8174.xml"/>
                 <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.4271.xml"/>
+                <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.6480.xml"/>
+                <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.6811.xml"/>
+                <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.8092.xml"/>
+                <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.8174.xml"/>
+                <reference anchor="I-D.ietf-sidrops-aspa-verification" target="https://datatracker.ietf.org/doc/html/draft-ietf-sidrops-aspa-verification-16">
+                    <front>
+                        <title>BGP AS_PATH Verification Based on Autonomous System Provider Authorization (ASPA) Objects</title>
+                        <author initials="A." surname="Azimov" fullname="Alexander Azimov">
+                            <organization>Yandex</organization>
+                        </author>
+                        <author initials="E." surname="Bogomazov" fullname="Eugene Bogomazov">
+                            <organization>Qrator Labs</organization>
+                        </author>
+                        <author initials="R." surname="Bush" fullname="Randy Bush">
+                            <organization>Internet Initiative Japan and Arrcus, Inc.</organization>
+                        </author>
+                        <author initials="K." surname="Patel" fullname="Keyur Patel">
+                            <organization>Arrcus</organization>
+                        </author>
+                        <author initials="J." surname="Snijders" fullname="Job Snijders">
+                            <organization>Fastly</organization>
+                        </author>
+                        <author initials="K." surname="Sriram" fullname="Kotikalapudi Sriram">
+                            <organization>USA National Institute of Standards and Technology</organization>
+                        </author>
+                        <date month="August" day="29" year="2023"/>
+                    </front>
+                    <seriesInfo name="Internet-Draft" value="draft-ietf-sidrops-aspa-verification-16"/>
+                </reference>
             </references>
             <references>
                 <name>Informative References</name>
