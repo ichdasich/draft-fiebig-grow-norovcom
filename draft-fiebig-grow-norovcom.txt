@@ -8,12 +8,14 @@ Intended status: Informational                           24 January 2024
 Expires: 27 July 2024
 
 
-        Do not Use BGP Communities for Signaling RPKI ROV State
+     Do not Use BGP Communities for Signaling RPKI Validation State
                    draft-fiebig-grow-norovcom-latest
 
 Abstract
 
-   This is an abstract.
+   This document describes why standard BGP communities nor BGP large-
+   communities must not be used to signal RPKI validation state.  This
+   includes, but is not limited to, RPKI ROV and, when available, ASPA.
 
 Status of This Memo
 
@@ -52,20 +54,41 @@ Table of Contents
      1.1.  Requirements Language
    2.  Scope of the Document
    3.  Definitions and Acronyms
-   4.  First section
-   5.  IANA Considerations
-   6.  Security Considerations
-   7.  References
-     7.1.  Normative References
-     7.2.  Informative References
+   4.  Use-Cases for Community-Based Signaling of Validation State
+     4.1.  Signaling to iBGP Speakers
+     4.2.  Signaling to iBGP Speakers
+   5.  Issues of Community-Based Signaling of Validation State
+     5.1.  Update Storms Upon Validator Failure
+     5.2.  Circumvention of RPKI Promises
+   6.  Better Alternatives to Community-Based Signaling
+   7.  IANA Considerations
+   8.  Security Considerations
+   9.  References
+     9.1.  Normative References
+     9.2.  Informative References
    Acknowledgements
    Author's Address
 
 1.  Introduction
 
-   The Border Gateway Protocol (BGP), specified in [RFC4271], is the
-   protocol used in the Internet to exchange routing information between
-   network domains.
+   The Border Gateway Protocol (BGP), specified in [RFC4271], does not
+   proivde a way to verify whether a neighbor is authorized to advertise
+   or announce specific prefixes.  Secure Inter-Domain Routing (SIDR)
+   [RFC6480] has been designed to fill this gap with route origin
+   validation (ROV), described in [RFC6811], and the forthcoming
+   Autonomous System Provider Authorization (ASPA), described in
+   [I-D.ietf-sidrops-aspa-verification].
+
+   With the introduction of RPKI based ROV and ASPA, operators started
+   using BGP communities (see [RFC1997]) and/or BGP large-communities
+   (see [RFC8092]) to signal the validation state of NLRI among iBGP
+   speakers.  Additionally, some operators do not remove these
+   communities when exporting routes, thereby signaling validation state
+   to the DFZ.
+
+   This document describes why following this practice can have negative
+   consequences within an AS, but may also negatively impact operators
+   across the Internet, and should therefor be discontinued.
 
 1.1.  Requirements Language
 
@@ -77,7 +100,10 @@ Table of Contents
 
 2.  Scope of the Document
 
-   This is the scope.
+   This document specifically discusses the use of BGP communities
+   [RFC1997] and/or BGP large-communities [RFC8092] to signal RPKI ROV
+   [RFC6811] and ASPA [I-D.ietf-sidrops-aspa-verification] validation
+   state.
 
 3.  Definitions and Acronyms
 
@@ -121,37 +147,104 @@ Table of Contents
    Router:
       In this document, router always refers to a BGP speaker.
 
-4.  First section
+4.  Use-Cases for Community-Based Signaling of Validation State
 
-   Section.
+   Various vendors recommend using BGP communities in their
+   documentation.  The common goal of these practices is usually....
 
-5.  IANA Considerations
+4.1.  Signaling to iBGP Speakers
+
+   You can signal to iBGP speakers, so they do not need an RTR session.
+   Invalid routes should be dropped and not redistributed anyway.
+
+4.2.  Signaling to iBGP Speakers
+
+   You can signal to downstreams so they can elect to forcibly not do
+   RPKI even though you do.  Similarly, the inverse would work, i.e.,
+   downstreams could skip on having their own RPKI setup and just trust
+   your communities.  Still, invalid routes should be dropped and not
+   redistributed anyway.  Trusting an upstream re: RPKI defeats the
+   purpose of RPKI.
+
+5.  Issues of Community-Based Signaling of Validation State
+
+   Various issues exist besides "this is not what it has been made for".
+
+5.1.  Update Storms Upon Validator Failure
+
+   If a validator fails, or even worse, keeps flapping, each change of
+   the validation state (unknown, valid, unknown, valid etc.) triggers
+   an update message.  This leads to an update storm/reconvergence of
+   all previously valid routes internally, sending updates for routes
+   that essentially did not change.  If routes are exported with that
+   community attached, peers will also get updates for these routes.  If
+   this happens for a large upstream provider, the cone will be
+   impacted.  If the cone is large, the rest of the Internet will also
+   be impacted.
+
+5.2.  Circumvention of RPKI Promises
+
+   RPKI promises signed things.  Using communities breaks that promise.
+
+6.  Better Alternatives to Community-Based Signaling
+
+   Run RTR.  Question is what to do if your routers are too old for
+   that.
+
+7.  IANA Considerations
 
    This document does not require any IANA actions.
 
-6.  Security Considerations
+8.  Security Considerations
 
-   Security considerations missing.
+   Security considerations are TBD.
 
-7.  References
+9.  References
 
-7.1.  Normative References
+9.1.  Normative References
+
+   [RFC1997]  Chandra, R., Traina, P., and T. Li, "BGP Communities
+              Attribute", RFC 1997, DOI 10.17487/RFC1997, August 1996,
+              <https://www.rfc-editor.org/info/rfc1997>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997,
               <https://www.rfc-editor.org/info/rfc2119>.
 
-   [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
-              2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
-              May 2017, <https://www.rfc-editor.org/info/rfc8174>.
-
    [RFC4271]  Rekhter, Y., Ed., Li, T., Ed., and S. Hares, Ed., "A
               Border Gateway Protocol 4 (BGP-4)", RFC 4271,
               DOI 10.17487/RFC4271, January 2006,
               <https://www.rfc-editor.org/info/rfc4271>.
 
-7.2.  Informative References
+   [RFC6480]  Lepinski, M. and S. Kent, "An Infrastructure to Support
+              Secure Internet Routing", RFC 6480, DOI 10.17487/RFC6480,
+              February 2012, <https://www.rfc-editor.org/info/rfc6480>.
+
+   [RFC6811]  Mohapatra, P., Scudder, J., Ward, D., Bush, R., and R.
+              Austein, "BGP Prefix Origin Validation", RFC 6811,
+              DOI 10.17487/RFC6811, January 2013,
+              <https://www.rfc-editor.org/info/rfc6811>.
+
+   [RFC8092]  Heitz, J., Ed., Snijders, J., Ed., Patel, K., Bagdonas,
+              I., and N. Hilliard, "BGP Large Communities Attribute",
+              RFC 8092, DOI 10.17487/RFC8092, February 2017,
+              <https://www.rfc-editor.org/info/rfc8092>.
+
+   [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
+              2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
+              May 2017, <https://www.rfc-editor.org/info/rfc8174>.
+
+   [I-D.ietf-sidrops-aspa-verification]
+              Azimov, A., Bogomazov, E., Bush, R., Patel, K., Snijders,
+              J., and K. Sriram, "BGP AS_PATH Verification Based on
+              Autonomous System Provider Authorization (ASPA) Objects",
+              Work in Progress, Internet-Draft, draft-ietf-sidrops-aspa-
+              verification-16, 29 August 2023,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-sidrops-
+              aspa-verification-16>.
+
+9.2.  Informative References
 
 Acknowledgements
 
